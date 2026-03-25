@@ -13,6 +13,13 @@
       <p class="subtitle">W5 Pull Request 練習</p>
     </header>
 
+    <div class="search-area">
+      <input id="search-input" type="text" placeholder="🔍 搜尋訊息...">
+      <button onclick="searchMessages()">搜尋</button>
+      <button onclick="clearSearch()" class="clear-btn">清除</button>
+      <span id="search-result" class="search-result"></span>
+    </div>
+
     <div id="chat-box">
       <div class="message bot">
         嗨！這週我們要學 Pull Request 🔀 試著修改我，然後開一個 PR 吧！
@@ -47,8 +54,55 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    function searchMessages() {
+      const keyword = document.getElementById('search-input').value.trim();
+      const messages = document.querySelectorAll('#chat-box .message');
+      const resultSpan = document.getElementById('search-result');
+
+      if (!keyword) {
+        clearSearch();
+        return;
+      }
+
+      let matchCount = 0;
+      let firstMatch = null;
+
+      messages.forEach(msg => {
+        const text = msg.textContent;
+        if (text.includes(keyword)) {
+          msg.classList.add('highlight');
+          msg.classList.remove('dimmed');
+          matchCount++;
+          if (!firstMatch) firstMatch = msg;
+        } else {
+          msg.classList.remove('highlight');
+          msg.classList.add('dimmed');
+        }
+      });
+
+      if (firstMatch) {
+        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      resultSpan.textContent = matchCount > 0
+        ? `找到 ${matchCount} 筆結果`
+        : '找不到相關訊息';
+    }
+
+    function clearSearch() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-result').textContent = '';
+      document.querySelectorAll('#chat-box .message').forEach(msg => {
+        msg.classList.remove('highlight', 'dimmed');
+      });
+    }
+
     document.getElementById('user-input').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') sendMessage();
+    });
+
+    document.getElementById('search-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') searchMessages();
     });
   </script>
 

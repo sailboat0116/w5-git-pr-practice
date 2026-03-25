@@ -87,3 +87,58 @@ header .subtitle { font-size: 13px; opacity: 0.85; margin-top: 4px; }
 }
 
 .input-area button:hover { opacity: 0.85; }
+
+/* 搜尋區域 */
+.search-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 8px;
+  border-bottom: 1px solid #eee;
+  background: #fafbfc;
+}
+
+.search-area input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+}
+
+.search-area input:focus { border-color: #4f8ef7; }
+
+.search-area button {
+  background: #4f8ef7;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.search-area button.clear-btn {
+  background: #ccc;
+  color: #333;
+}
+
+.search-area button:hover { opacity: 0.85; }
+
+.search-result {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* 搜尋高亮 & 淡化 */
+.message.highlight {
+  border: 2px solid #f5a623;
+  background: #fff8e1 !important;
+  color: #333 !important;
+}
+
+.message.dimmed {
+  opacity: 0.35;
+}
